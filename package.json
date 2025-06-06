@@ -1,0 +1,10 @@
+{
+  "name": "simple-motion",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.18.0"
+  }
+}
