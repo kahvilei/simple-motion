@@ -1,10 +1,13 @@
 {
-  "name": "simple-motion",
+  "name": "simple-animation",
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start"
   },
   "devDependencies": {
     "@wordpress/scripts": "^30.18.0"
+  },
+  "dependencies": {
+    "@wordpress/icons": "^10.25.0"
   }
 }
