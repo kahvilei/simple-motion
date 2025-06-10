@@ -1,5 +1,5 @@
 export function extractEntranceConfig(element) {
-    const config = element.attributes?.simple_animation??{ mode: "normal"}
+    const config = JSON.parse(element?.getAttribute('simple_animation'))??{ mode: "normal"}
     return {
         ...config,
         mode: "normal"
