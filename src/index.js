@@ -1,4 +1,4 @@
-import { addFilter } from "@wordpress/hooks"
+import { addAction, addFilter } from "@wordpress/hooks"
 import { __ } from '@wordpress/i18n';
 import { blockSettings } from "./filters/block/blockSettings"
 import { blockSettingsPanel } from "./filters/block/blockSettingsPanel";

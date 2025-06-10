@@ -2,7 +2,8 @@
   "name": "simple-animation",
   "scripts": {
     "build": "wp-scripts build",
-    "start": "wp-scripts start"
+    "site-scripts": "npx webpack --watch --config webpack.config.js",
+    "start": "wp-scripts start npm run site-scripts"
   },
   "devDependencies": {
     "@wordpress/scripts": "^30.18.0"

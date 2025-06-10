@@ -7,7 +7,7 @@
  * Requires at least:   6.5
  */
 
- /**
+/**
  * Enqueue Editor scripts.
  */
 function simple_animation_enqueue_block_editor_assets() {
@@ -27,14 +27,26 @@ function simple_animation_enqueue_block_editor_assets() {
 }
 add_action( 'enqueue_block_editor_assets', 'simple_animation_enqueue_block_editor_assets' );
 
+/**
+ * Enqueue Site scripts.
+ */
+add_action('wp_enqueue_scripts','simple_animation_site_scripts');
+
+function simple_animation_site_scripts() {
+    wp_enqueue_script( 'watcher-js', plugin_dir_url( __FILE__ ) . 'build/site/index.js');
+}
+
+/**
+ * Change default block render.
+ */
 function add_animation_attrs_to_blocks_with_animation( $block_content, $block ) {
 
     $is_animated = $block['attrs']['simpleAnimation'] ?? false;
 
-    // Only apply the modifications if the image is decorative.
+    // Only apply the modifications if block has simple animation attr
 	if (  $is_animated ) {
 			$processor = new WP_HTML_Tag_Processor( $block_content );
-			// Modify the img attributes using the HTML API, add settings to top level element as string
+			// add settings to top level element as string
 			if ( $processor->next_tag() ) {
 				$processor->set_attribute( 'simple_animation', json_encode($block['attrs']['simpleAnimation']) );
 			}
