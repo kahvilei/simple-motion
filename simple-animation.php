@@ -26,3 +26,21 @@ function simple_animation_enqueue_block_editor_assets() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'simple_animation_enqueue_block_editor_assets' );
+
+function add_animation_attrs_to_blocks_with_animation( $block_content, $block ) {
+
+    $is_animated = $block['attrs']['simpleAnimation'] ?? false;
+
+    // Only apply the modifications if the image is decorative.
+	if (  $is_animated ) {
+			$processor = new WP_HTML_Tag_Processor( $block_content );
+			// Modify the img attributes using the HTML API, add settings to top level element as string
+			if ( $processor->next_tag() ) {
+				$processor->set_attribute( 'simple_animation', json_encode($block['attrs']['simpleAnimation']) );
+			}
+			return $processor->get_updated_html();
+		}    
+
+    return $block_content;
+}
+add_filter( 'render_block', 'add_animation_attrs_to_blocks_with_animation', 10, 2 );
