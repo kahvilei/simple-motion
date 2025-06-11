@@ -1,10 +1,12 @@
 {
   "name": "simple-animation",
   "scripts": {
-    "site-scripts-start": "npx webpack --watch --config webpack.config.js",
-    "site-scripts-build": "npx webpack --config webpack.config.js",
-    "build": "wp-scripts build npm run site-scripts-build",
-    "start": "wp-scripts start npm run site-scripts-start"
+    "site-start": "wp-scripts build src/animation/index.js --output-path=build/site",
+    "site-build": "wp-scripts start src/animation/index.js --output-path=build/site",
+    "editor-build": "wp-scripts build --output-path=build/editor",
+    "editor-start": "wp-scripts start --output-path=build/editor",
+    "start": "npx concurrently npm:editor-start npm:site-start",
+    "build": "npm run editor-build && npm run site-build"
   },
   "devDependencies": {
     "@wordpress/scripts": "^30.18.0"

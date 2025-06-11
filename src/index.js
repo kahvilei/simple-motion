@@ -17,4 +17,4 @@ addFilter(
 	'editor.BlockEdit',
 	'simple-animation/animation-edit-panel',
 	blockSettingsPanel
-);
+)

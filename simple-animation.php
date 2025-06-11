@@ -11,11 +11,11 @@
  * Enqueue Editor scripts.
  */
 function simple_animation_enqueue_block_editor_assets() {
-	$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
+	$asset_file = include plugin_dir_path( __FILE__ ) . 'build/editor/index.asset.php';
 
 	wp_enqueue_script(
 		'simple-animation-editor-scripts',
-		plugin_dir_url( __FILE__ ) . 'build/index.js',
+		plugin_dir_url( __FILE__ ) . 'build/editor/index.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
