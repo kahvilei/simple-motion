@@ -1,5 +1,5 @@
 export const slide = {
-   translateFactor: "element",
+   translateFactor: "100%",
    hideOutside: true,
    frames: [
      { translate: 100}, // Start

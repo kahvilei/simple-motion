@@ -1,37 +1,26 @@
-import generateFrames from "./keyFrameGenerator";
+import generateFrames from "./utils";
 import { fade } from "./styles/fade";
 import { slide } from "./styles/slide";
+import { zoom } from "./styles/zoom";
 
 export default function animate(element, config) {
     const { style, direction, keyframes, duration, easing, fill, delay, mode } = config;
 
-    let preset = "fade"
+    let preset = fade;
     
     switch(style){
         case "slide":
         preset = slide;
-
+        break;
+        case "zoom":
+        preset = zoom;
         break;
         default:
         preset = fade;
     }
 
-    let animateNode = element
-
     if (preset.hideOutside) {
-        const wrapperClass = "animate-overflow-container";
-        console.log(element)
-        // Check if container already exists
-        let existingContainer = element.parentNode.className === wrapperClass;
-    
-        
-        if (!existingContainer) {
-            const wrapper = document.createElement("div");
-            wrapper.style.overflow = "hidden";
-            wrapper.classList.add(wrapperClass);
-            element.parentNode.insertBefore(wrapper, element);
-            wrapper.appendChild(element);
-        } 
+        element.parentNode.style.overflow = "hidden";
     }
 
     element.animate(
@@ -42,6 +31,5 @@ export default function animate(element, config) {
             delay: delay??0,
             direction: mode??"normal"
         }
-    )
-      
+    )    
 }
