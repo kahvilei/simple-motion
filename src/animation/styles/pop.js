@@ -1,0 +1,9 @@
+export const pop = {
+   translateFactor: '200px',
+   easing: "cubic-bezier(.17,.67,.43,1.18)",
+   duration: 300,
+   frames: [
+     { translate: 100, scale: .1, opacity: 0 }, // Start
+     { translate: 0, scale: 1, opacity: 1 }  // End
+   ]
+}

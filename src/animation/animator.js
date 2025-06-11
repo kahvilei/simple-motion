@@ -2,6 +2,8 @@ import generateFrames from "./utils";
 import { fade } from "./styles/fade";
 import { slide } from "./styles/slide";
 import { zoom } from "./styles/zoom";
+import { pop } from "./styles/pop";
+import { wipe } from "./styles/wipe";
 
 export default function animate(element, config) {
     const { style, direction, keyframes, duration, easing, fill, delay, mode } = config;
@@ -15,6 +17,12 @@ export default function animate(element, config) {
         case "zoom":
         preset = zoom;
         break;
+        case "pop":
+        preset = pop;
+        break;
+        case "wipe":
+        preset = wipe;
+        break;
         default:
         preset = fade;
     }
@@ -25,10 +33,10 @@ export default function animate(element, config) {
 
     element.animate(
         keyframes??generateFrames(preset, direction), {
-            duration: duration??200,
-            easing: easing??'ease-out',
-            fill: fill??'forwards',
-            delay: delay??0,
+            duration: duration??preset.duration??200,
+            easing: easing??preset.easing??'ease-out',
+            fill: fill??preset.fill??'forwards',
+            delay: delay??preset.delay??0,
             direction: mode??"normal"
         }
     )    

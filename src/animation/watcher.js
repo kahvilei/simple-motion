@@ -23,7 +23,6 @@ export default function watcher() {
     const main = document.querySelector("main")
     main.style.overflowX = "clip"
   }
-  console.log(wrappedElements)
   wrappedElements.forEach(element => {
       observer.observe(element)
     }

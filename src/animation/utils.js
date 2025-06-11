@@ -57,16 +57,47 @@ export default function generateFrames(preset, direction) {
   }
     
     return frames.map(frame => {
-      return {
-        transformOrigin: origin,
-        ...frame,
-        translate: generateTranslateString(frame, translateFactor, direction)
-      }
+        let clipPath = "none";
+        if(frame.window !== undefined){
+            
+            const windowPercent = frame.window * 100;
+            
+            switch(direction) {
+                case "up":
+                    // Wipe from top to bottom
+                    clipPath = `polygon(0% 0%, 100% 0%, 100% ${windowPercent}%, 0% ${windowPercent}%)`;
+                    break;
+                case "down":
+                    // Wipe from bottom to top
+                    clipPath = `polygon(0% ${100 - windowPercent}%, 100% ${100 - windowPercent}%, 100% 100%, 0% 100%)`;
+                    break;
+                case "left":
+                    // Wipe from left to right
+                    clipPath = `polygon(${100 - windowPercent}% 0%, 100% 0%, 100% 100%, ${100 - windowPercent}% 100%)`;
+                    break;
+                case "right":
+                    // Wipe from right to left
+                    clipPath = `polygon(0% 0%, ${windowPercent}% 0%, ${windowPercent}% 100%, 0% 100%)`;
+                    break;
+                default:
+                    // Default to left-to-right wipe
+                    clipPath = `polygon(${frame.window*-50 + 50}% 0%, ${frame.window *50 +50}% 0%, ${frame.window *50 +50}% 100%, ${frame.window*-50 + 50}% 100%)`;
+            }
+        }
+        return {
+            transformOrigin: origin,
+            clipPath: clipPath,
+            ...frame,
+            translate: generateTranslateString(frame, translateFactor, direction)
+        }
     });
 }
 
 function generateTranslateString (frame, translateFactor, direction) {
-  const xMult = (direction === "right" || direction === "left")?((direction === "right")?1:-1):0;
-  const yMult = (direction === "up" || direction === "down")?((direction === "up")?1:-1):0;
-  return `calc((${translateFactor} * ${frame.translate/100}) * ${xMult}) calc((${translateFactor} * ${frame.translate/100}) * ${yMult})`
+    if (frame.translate === undefined){
+        return "0 0"
+    }
+    const xMult = (direction === "right" || direction === "left")?((direction === "right")?1:-1):0;
+    const yMult = (direction === "up" || direction === "down")?((direction === "up")?1:-1):0;
+    return `calc((${translateFactor} * ${frame.translate/100}) * ${xMult}) calc((${translateFactor} * ${frame.translate/100}) * ${yMult})`
 }
