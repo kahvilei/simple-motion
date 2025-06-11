@@ -1,5 +1,5 @@
 export const slide = {
-   translateFactor: "100%",
+   translateFactor: "calc(100% + 10rem)",
    hideOutside: true,
    duration: 550,
    easing: "cubic-bezier(.14,.75,.16,1)",
