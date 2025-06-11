@@ -5,18 +5,29 @@ import { __ } from '@wordpress/i18n';
 import DirectionToggle from '../../common/components/DirectionToggle';
 import SelectAnimation from '../../common/components/SelectAnimation';
 import SimpleLogo from '../../common/icons/simpleLogo';
+import { useEffect, useRef } from 'react';
+import animate from '../../animation/animator';
 
 export function blockSettingsPanel( BlockEdit ) {
 	return ( props ) => {
 		const { attributes, setAttributes } = props;
+		const blockRef = useRef();
 
 		// Retrieve selected attributes from the block.
 		const { simpleAnimation } = attributes;
 
+		useEffect(() => {
+			console.log(blockRef, simpleAnimation)
+			if (blockRef.current && simpleAnimation && simpleAnimation.style !== ""){
+				animate(blockRef.current.nextElementSibling, simpleAnimation);
+			}
+		}, [animate, blockRef, simpleAnimation])
+
 
 		return (
 			<>
-				<BlockEdit { ...props } />
+				<div style={{display:"none"}} ref={blockRef}></div>
+				<BlockEdit { ...props }/>
 				<InspectorControls>
 					<PanelBody
 						title={ __(
@@ -48,7 +59,7 @@ export function blockSettingsPanel( BlockEdit ) {
 														...(simpleAnimation??simpleAnimation),
 														direction: value
 													}
-												})
+											})
 										}
 									}
 									value={simpleAnimation?.direction??undefined}

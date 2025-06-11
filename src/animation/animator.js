@@ -3,6 +3,7 @@ import styles from "./styles";
 
 export default function animate(element, config) {
     const { style, direction, keyframes, duration, easing, fill, delay, mode } = config;
+    console.log(config)
 
     let preset = styles.fade;
     
