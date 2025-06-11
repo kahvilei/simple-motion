@@ -5,9 +5,12 @@ import {
     Notice
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import styles from '../../animation/styles';
 
 export default function DirectionToggle( props ) {
-    const { value, onChange, label } = props;
+    const { value, onChange, label, style } = props;
+
+    const canCenter = (styles[style]?.canCenter);
 
     if (!ToggleGroupControl || !ToggleGroupControlOptionIcon) {
         return (<Notice status="error" isDismissible={false}>Experimental toggle controls are either deprecated or upgraded, update Simple Animation plugin to resolve.</Notice>)
@@ -42,11 +45,14 @@ export default function DirectionToggle( props ) {
                 value="left"
                 label="Animate Left"
             />
-            <ToggleGroupControlOptionIcon
-                icon={border}
-                value="center"
-                label="From Center"
-            />
+            {canCenter &&
+                <ToggleGroupControlOptionIcon
+                    icon={border}
+                    value="center"
+                    label="From Center"
+                />
+            }
+            
         </ToggleGroupControl>
 
     );

@@ -53,6 +53,7 @@ export function blockSettingsPanel( BlockEdit ) {
 									}
 									value={simpleAnimation?.direction??undefined}
 									label="Direction"
+									style={simpleAnimation.style}
 								/>
 							
 						</>

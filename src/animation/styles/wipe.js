@@ -1,6 +1,7 @@
 export const wipe = {
    hideOutside: true,
    easing: "cubic-bezier(.22,.86,.3,.98)",
+   canCenter: true,
    duration: 550,
    delay: 200,
    frames: [

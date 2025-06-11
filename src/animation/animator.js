@@ -1,30 +1,15 @@
 import generateFrames from "./utils";
-import { fade } from "./styles/fade";
-import { slide } from "./styles/slide";
-import { zoom } from "./styles/zoom";
-import { pop } from "./styles/pop";
-import { wipe } from "./styles/wipe";
+import styles from "./styles";
 
 export default function animate(element, config) {
     const { style, direction, keyframes, duration, easing, fill, delay, mode } = config;
 
-    let preset = fade;
+    let preset = styles.fade;
     
-    switch(style){
-        case "slide":
-        preset = slide;
-        break;
-        case "zoom":
-        preset = zoom;
-        break;
-        case "pop":
-        preset = pop;
-        break;
-        case "wipe":
-        preset = wipe;
-        break;
-        default:
-        preset = fade;
+    try {
+        preset = styles[style];
+    } catch (e) {
+        preset = styles.fade;
     }
 
     if (preset.hideOutside) {

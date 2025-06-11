@@ -88,9 +88,7 @@ export default function generateFrames(preset, direction) {
             transformOrigin: origin,
             clipPath: clipPath,
             ...frame,
-            scale: 1,
-            translate: 0,
-            transform: `scale(${frame.scale}) translate(${generateTranslateString(frame, translateFactor, direction)}) `,
+            translate: generateTranslateString(frame, translateFactor, direction),
         }
     });
 }
@@ -103,5 +101,5 @@ function generateTranslateString (frame, translateFactor, direction) {
     const xMult = (direction === "right" || direction === "left")?((direction === "right")?-1:1):0;
     const yMult = (direction === "up" || direction === "down")?((direction === "up")?1:-1):0;
     console.log(xMult,yMult,translateFactor,frame.translate)
-    return `calc((${translateFactor} * ${frame.translate/100}) * ${xMult}), calc((${translateFactor} * ${frame.translate/100}) * ${yMult})`
+    return `calc((${translateFactor} * ${frame.translate/100}) * ${xMult}) calc((${translateFactor} * ${frame.translate/100}) * ${yMult})`
 }
