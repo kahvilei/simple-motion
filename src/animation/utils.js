@@ -41,16 +41,16 @@ export default function generateFrames(preset, direction) {
 
   switch(direction){
     case "up":
-      origin = "top center";
-      break;
-    case "down":
       origin = "bottom center";
       break;
+    case "down":
+      origin = "top center";
+      break;
     case "right":
-      origin = "center right";
+      origin = "center left";
       break;
     case "left":
-      origin = "center left";
+      origin = "center right";
       break;
     default: 
       origin = "center";
@@ -65,11 +65,11 @@ export default function generateFrames(preset, direction) {
             switch(direction) {
                 case "up":
                     // Wipe from top to bottom
-                    clipPath = `polygon(0% 0%, 100% 0%, 100% ${windowPercent}%, 0% ${windowPercent}%)`;
+                    clipPath = `polygon(0% ${100 - windowPercent}%, 100% ${100 - windowPercent}%, 100% 100%, 0% 100%)`;
                     break;
                 case "down":
                     // Wipe from bottom to top
-                    clipPath = `polygon(0% ${100 - windowPercent}%, 100% ${100 - windowPercent}%, 100% 100%, 0% 100%)`;
+                    clipPath = `polygon(0% 0%, 100% 0%, 100% ${windowPercent}%, 0% ${windowPercent}%)`;
                     break;
                 case "left":
                     // Wipe from left to right
@@ -88,16 +88,20 @@ export default function generateFrames(preset, direction) {
             transformOrigin: origin,
             clipPath: clipPath,
             ...frame,
-            translate: generateTranslateString(frame, translateFactor, direction)
+            scale: 1,
+            translate: 0,
+            transform: `scale(${frame.scale}) translate(${generateTranslateString(frame, translateFactor, direction)}) `,
         }
     });
 }
 
 function generateTranslateString (frame, translateFactor, direction) {
     if (frame.translate === undefined){
+        
         return "0 0"
     }
-    const xMult = (direction === "right" || direction === "left")?((direction === "right")?1:-1):0;
+    const xMult = (direction === "right" || direction === "left")?((direction === "right")?-1:1):0;
     const yMult = (direction === "up" || direction === "down")?((direction === "up")?1:-1):0;
-    return `calc((${translateFactor} * ${frame.translate/100}) * ${xMult}) calc((${translateFactor} * ${frame.translate/100}) * ${yMult})`
+    console.log(xMult,yMult,translateFactor,frame.translate)
+    return `calc((${translateFactor} * ${frame.translate/100}) * ${xMult}), calc((${translateFactor} * ${frame.translate/100}) * ${yMult})`
 }

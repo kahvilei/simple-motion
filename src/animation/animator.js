@@ -33,8 +33,8 @@ export default function animate(element, config) {
 
     element.animate(
         keyframes??generateFrames(preset, direction), {
-            duration: duration??preset.duration??200,
-            easing: easing??preset.easing??'ease-out',
+            duration: duration??preset.duration??500,
+            easing: easing??preset.easing??'ease',
             fill: fill??preset.fill??'forwards',
             delay: delay??preset.delay??0,
             direction: mode??"normal"
